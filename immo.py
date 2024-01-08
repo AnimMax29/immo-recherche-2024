@@ -9,7 +9,7 @@ def liste_des_villes():
     df = pd.read_csv('./data/prix_immobilier_fictif.csv')
     
     #liste des villes sans doublons
-    print(df['Ville'].unique().tolist())
+    print("liste des villes :",df['Ville'].unique().tolist())
     return df['Ville'].unique().tolist()
 
 def liste_des_quartiers():
@@ -19,7 +19,7 @@ def liste_des_quartiers():
     df = pd.read_csv('./data/prix_immobilier_fictif.csv')
     
     #liste des quartier sans doublons
-    print(df['Quartier'].unique().tolist())
+    print("liste des quartiers :",df['Quartier'].unique().tolist())
     return df['Quartier'].unique().tolist()
 
 def quartiers_pour_ville(ville):
@@ -29,9 +29,10 @@ def quartiers_pour_ville(ville):
     
     df = pd.read_csv('./data/prix_immobilier_fictif.csv')
     quartiers = df[df['Ville'] == ville]['Quartier'].unique().tolist()
+    print("liste des quartiers de la ville",ville," :",quartiers)
     return quartiers
 
-liste_villes = liste_des_villes()
-liste_quartiers = liste_des_quartiers()
-quartier_Berlin=quartiers_pour_ville('Berlin')
-quartier_Londres=quartiers_pour_ville('Londres')
+# liste_villes = liste_des_villes()
+# liste_quartiers = liste_des_quartiers()
+# quartier_Berlin=quartiers_pour_ville('Berlin')
+# quartier_Londres=quartiers_pour_ville('Londres')
