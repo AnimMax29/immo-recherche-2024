@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recherche Immobilière</title>
+</head>
+<body>
+    <label for="selectVilles">Sélectionnez une ville :</label>
+    <select id="selectVilles"></select>
+    <br>
+    <label for="selectQuartiers">Sélectionnez un quartier :</label>
+    <select id="selectQuartiers"></select>
+    <br>
+    <button onclick="getPrice()">Obtenir le Prix</button>
+    <div id="resultat"></div>
+
+    <script>
+        // Fonction pour charger les villes depuis l'API Flask
+        function chargerVilles() {
+            console.log("chargerVilles - entrée dans la fonction")
+            fetch('/villes')
+            .then(response => response.json())
+            .then(data => {
+                const selectVilles = document.getElementById('selectVilles');
+                data.forEach(ville => {
+                    const option = document.createElement('option');
+                    option.value = ville;
+                    option.text = ville;
+                    selectVilles.appendChild(option);
+                });
+            });
+        }
+
+        // Fonction pour charger les quartiers pour une ville sélectionnée
+        function chargerQuartiers() {
+            console.log("chargerQuartiers - entrée dans la fonction")
+            const selectedVille = document.getElementById('selectVilles').value;
+            console.log("chargerQuartiers - selectedVille",selectedVille)
+            fetch(`/quartiers/${selectedVille}`)
+            .then(response => response.json())
+            .then(data => {
+                const selectQuartiers = document.getElementById('selectQuartiers');
+                selectQuartiers.innerHTML = '';
+                data.forEach(quartier => {
+                    const option = document.createElement('option');
+                    option.value = quartier;
+                    option.text = quartier;
+                    selectQuartiers.appendChild(option);
+                });
+            });
+        }
+
+        // Fonction pour récupérer le prix pour la ville et le quartier sélectionnés
+        function getPrice() {
+            const selectedVille = document.getElementById('selectVilles').value;
+            const selectedQuartier = document.getElementById('selectQuartiers').value;
+            fetch(`/prix/${selectedVille}/${selectedQuartier}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultat').innerHTML = data;
+            });
+        }
+
+        // Charger les villes au chargement de la page
+        window.onload = () => {
+            chargerVilles();
+            // Ajouter un écouteur d'événements pour détecter les changements de sélection de la ville
+            const selectVilles = document.getElementById('selectVilles');
+            selectVilles.addEventListener('change', chargerQuartiers);
+        };
+    </script>
+</body>
+</html>
