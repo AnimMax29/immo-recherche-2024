@@ -13,25 +13,25 @@ def serve_static_file():
 def get_all_villes():
     all_villes = liste_des_villes()
     print("appel de la requête - /villes")
-    return jsonify(all_villes)
+    return jsonify({"villes": all_villes}), 200
 
-@app.route('/quartiers', methods=['GET'])
+@app.route('/quartiers/all', methods=['GET'])
 def get_all_quartiers():
     all_quartiers = liste_des_quartiers()
     print("appel de la requête - /quartiers/all")
-    return jsonify(all_quartiers)
+    return jsonify({"quartiers": all_quartiers}), 200
 
 @app.route('/quartiers/<string:ville>', methods=['GET'])
 def get_quartiers(ville):
     quartiers = quartiers_pour_ville(ville)
     print("appel de la requête - /quartiers/<string:ville> - avec la ville",ville)
-    return jsonify(quartiers)
+    return jsonify({"quartiers": quartiers}), 200
 
 @app.route('/prix/<string:ville>/<string:quartier>', methods=['GET'])
-def get_prix(ville,quartier):
-    prix= prix_pour_quartier_et_ville(ville,quartier)
+def get_prix(ville, quartier):
+    prix = prix_pour_quartier_et_ville(ville, quartier)
     print("appel de la requête - /prix/<string:ville>/<string:quartier> - avec la ville",ville,"- avec le quartier",quartier)
-    return jsonify(prix)
+    return jsonify({"prix": prix}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

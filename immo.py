@@ -1,8 +1,7 @@
 # Lit fichier, traite le fichier (Pandas)
 
 import pandas as pd 
-fichier = './immo-recherche-2024/data/prix_immobilier_fictif.csv'
-#fichier = './data/prix_immobilier_fictif.csv'
+fichier = './data/prix_immobilier_fictif.csv'
 
 def liste_des_villes():
     """ Retourne la liste de toutes les villes

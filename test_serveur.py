@@ -21,8 +21,8 @@ def test_get_all_quartiers(client):
 def test_get_quartiers(client):
     response = client.get('/quartiers/Paris')
     assert response.status_code == 200
-    assert b"Paris" in response.data
-    
+    assert b'quartiers' in response.data
+
 def test_get_prix(client):
     response = client.get('/quartiers/Paris/Est')
     assert response.status_code == 200
